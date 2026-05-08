@@ -1,0 +1,31 @@
+name: FastAPI CI
+
+on:
+  pull_request:
+    branches: [develop, main]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install ruff
+          # 실제 의존성은 무겁고 (torch/transformers) CI 에서는 syntax check 만
+          # pip install -r requirements.txt  # 필요 시 활성화
+
+      - name: Lint (ruff)
+        run: ruff check .
+
+      - name: Format check
+        run: ruff format --check .

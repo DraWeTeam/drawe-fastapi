@@ -46,16 +46,12 @@ def health():
 @app.post("/embed/text", response_model=TextEmbedResponse)
 def embed_text(req: TextEmbedRequest):
     inputs = processor(
-        text=[req.text],
-        return_tensors="pt",
-        padding=True,
-        truncation=True
+        text=[req.text], return_tensors="pt", padding=True, truncation=True
     ).to(device)
 
     with torch.no_grad():
         text_features = model.get_text_features(
-            input_ids=inputs["input_ids"],
-            attention_mask=inputs["attention_mask"]
+            input_ids=inputs["input_ids"], attention_mask=inputs["attention_mask"]
         )
 
         if hasattr(text_features, "pooler_output"):
