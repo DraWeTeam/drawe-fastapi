@@ -1,0 +1,21 @@
+language: ko-KR
+
+reviews:
+  auto_review:
+    enabled: true
+    drafts: false
+    base_branches:
+      - main
+      - develop
+
+  profile: assertive
+
+  path_filters:
+    - "!**/__pycache__/**"
+    - "!**/*.pyc"
+    - "!dist/**"
+    - "!build/**"
+    - "!htmlcov/**"
+
+chat:
+  auto_reply: true
